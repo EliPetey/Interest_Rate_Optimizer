@@ -22,15 +22,22 @@ def run_app():
 
         for i in range(num_banks):
             name = input(f"Bank {i+1} Name: ")
+            isa_q = input(f"Is {name} an ISA account? (y/n): ").lower()
+
+            allowance = 0
+            if isa_q:
+                # Default is usually £20k if you haven't touched it this year
+                allowance = float(input(f"  Remaining 2026/27 Allowance for {name}: £"))
+
             current_bal = float(input(f" Current Balance in {name}: £"))
             rate = float(input(f"Bank {i+1} Interest Rate (%): "))
-            isa_q = input(f"Is {name} an ISA account? (y/n): ").lower()
             accounts.append(
                 {
                     "name": name,
                     "rate": rate,
                     "is_isa": isa_q == "y",
                     "current_bal": current_bal,
+                    "allowance_remaining": allowance,
                 }
             )
 
