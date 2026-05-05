@@ -24,5 +24,6 @@ def run_app():
         if bal > 0.01:
             print(f"{accounts[i]['name']}: £{bal:,.2f}")
 
-    if __name__ == "__main__":
-        run_app()
+
+if __name__ == "__main__":
+    run_app()
