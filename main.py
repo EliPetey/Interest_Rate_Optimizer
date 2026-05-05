@@ -22,7 +22,7 @@ def run_app():
 
         for i in range(num_banks):
             name = input(f"Bank {i+1} Name: ")
-            isa_q = input(f"Is {name} an ISA account? (y/n): ").lower()
+            isa_q = input(f"Is {name} an ISA account? (y/n): ").lower() == "y"
 
             allowance = 0
             if isa_q:
