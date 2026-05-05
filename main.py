@@ -4,8 +4,6 @@ from engine.optimizer import find_best_allocation
 
 def run_app():
     print("--- Interest Rate Optimizer (UK 2026) ---")
-    salary = float(input("Enter your yearly salary: £"))
-    total_cash = float(input("Enter total cash to allocate: £"))
 
     try:
         # 1. Inputs
