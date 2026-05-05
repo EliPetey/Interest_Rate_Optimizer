@@ -40,7 +40,8 @@ def find_best_allocation(total_cash, accounts, tax_engine):
     bounds = []
     for a in accounts:
         if a["is_isa"]:
-            bounds.append((0, min(1.0, tax_engine.isa_limit / total_cash)))
+            max_allowed = a["current_bal"] + a["allowance_remaining"]
+            bounds.append((0, max_allowed / total_cash))
         else:
             bounds.append((0, 1.0))
 
