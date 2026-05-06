@@ -41,7 +41,7 @@ class UKTax2026:
         return main_chunk + upper_chunk
 
     def calculate_income_tax(self):
-        remaining_income = max(0, self.salary - self.personal_allocance)
+        remaining_income = max(0, self.salary - self.personal_allowance)
         tax = 0.0
 
         # Basic Rate (20%) - up to £37,700 of taxable income
