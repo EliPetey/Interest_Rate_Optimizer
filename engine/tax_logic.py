@@ -8,7 +8,7 @@ class UKTax2026:
         self.ni_upper_limit = 50270  # Point NI rate usually drops
 
         # Calculate dynamic personal allowance
-        self.personal_allocance = 12570
+        self.personal_allowance = 12570
         if self.salary > 100000:
             reduction = (self.salary - 100000) / 2
             self.personal_allowance = max(0, 12570 - reduction)
