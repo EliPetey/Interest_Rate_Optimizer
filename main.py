@@ -13,6 +13,7 @@ def run_app():
         tax_engine = UKTax2026(salary)
         base_take_home = tax_engine.get_take_home_salary()
 
+        print(f"Personal Allowance: £{tax_engine.personal_allowance:,.2f}")
         print(f"Your Take-Home Salary (After Tax & NI): £{base_take_home:,.2f}")
 
         # 3. Gather Bank Options & Current Balances
@@ -22,10 +23,10 @@ def run_app():
 
         for i in range(num_banks):
             name = input(f"Bank {i+1} Name: ")
-            isa_q = input(f"Is {name} an ISA account? (y/n): ").lower() == "y"
+            is_isa = input(f"Is {name} an ISA? (y/n): ").lower() == "y"
 
             allowance = 0
-            if isa_q:
+            if is_isa:
                 # Default is usually £20k if you haven't touched it this year
                 allowance = float(input(f"  Remaining 2026/27 Allowance for {name}: £"))
 
@@ -35,7 +36,7 @@ def run_app():
                 {
                     "name": name,
                     "rate": rate,
-                    "is_isa": isa_q == "y",
+                    "is_isa": is_isa,
                     "current_bal": current_bal,
                     "allowance_remaining": allowance,
                 }
@@ -51,15 +52,20 @@ def run_app():
 
         # 5. Output Results
         print("\n--- OPTIMIZED PLAN ---")
-        for i, recommended_bal in enumerate(results):
-            diff = recommended_bal - accounts[i]["current_bal"]
-            action = "KEEP"
+        for i, target_bal in enumerate(results):
+            diff = target_bal - accounts[i]["current_bal"]
+
+            # FIXED: Correct logic for ADD vs REMOVE
             if diff > 0.01:
+                action = f"ADD £{diff:,.2f}"
+            elif diff < -0.01:
                 action = f"REMOVE £{abs(diff):,.2f}"
+            else:
+                action = "KEEP AS IS"
 
             print(f"-> {accounts[i]['name']}:")
-            print(f"    Target Balance: £{recommended_bal:,.2f}")
-            print(f"    Action: {action}\n")
+            print(f"   Target Balance: £{target_bal:,.2f}")
+            print(f"   Action: {action}\n")
 
     except ValueError:
         print("\n[Error] Please enter numerical values (no commas or £ signs).")
